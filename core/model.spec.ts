@@ -61,7 +61,7 @@ describe('model', () => {
         const callback = jest.fn();
         model.$on('*', callback);
         const addressCityChanged = jest.fn();
-        model.address.$on('city', addressCityChanged);
+        model.address.$on('address.city', addressCityChanged);
         model.address.city = 'London';
         expect(addressCityChanged).toHaveBeenCalledTimes(1);
         expect(callback).toHaveBeenCalledTimes(1);
