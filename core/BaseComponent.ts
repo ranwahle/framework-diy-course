@@ -1,10 +1,16 @@
+import { DependencyInjection } from "./DependencyInjection";
+import { Injector } from "./Injector";
 import { createModel, query } from "./model";
 
-export class BaseComponent extends HTMLElement {
+export class BaseComponent extends DependencyInjection(HTMLElement) {
     static bindings: Record<string, string> = {};
+    static dependencies: string[] = [];
     static template = "";
     static model = createModel({});
     private _unObservers: Set<() => void> = new Set();
+
+
+    // protected dependency: Record<string, any> = {};
 
     connectedCallback() { 
         Object.keys(this.constructor.bindings).forEach(key => {
@@ -19,8 +25,11 @@ export class BaseComponent extends HTMLElement {
             this._unObservers.add(unObserver);
         });
 
+
         this.render();
     }
+
+   
 
     disconnectedCallback() {
         this._unObservers.forEach(unObserver => unObserver());
