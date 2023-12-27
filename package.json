@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --runInBand ",
-    "dev": "vite dev"
+    "dev": "vite dev",
+    "build":"esbuild ./core/index.ts --bundle --minify > ./dist/index.js"
   },
   "author": "",
   "license": "ISC",

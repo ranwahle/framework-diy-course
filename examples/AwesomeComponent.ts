@@ -1,4 +1,5 @@
 import { BaseComponent } from "../core/BaseComponent";
+import { Router } from "../core/router/router";
 import { store } from "./store";
 
 export class AwesomeComponent extends BaseComponent {

@@ -8,10 +8,30 @@
 
 </head>
 <body>
-    <h1>Avichay</h1>
-<registration-form></registration-form>
-<registration-form kuku="pepe"></registration-form>
+    <nav>
+        <a href="#/home">Home</a>
+        <a href="#/about">About</a>
+        <a href="#/contact">Contact</a>
+        <a href="#/register">Login</a>
 
-    <!-- <awesome-component></awesome-component> -->
+    </nav>
+
+<router-outlet path="/home">
+    <template>
+        <home-component></home-component>
+    </template>
+</router-outlet>
+<router-outlet default>
+    <template>
+        <h1>No Route</h1>
+    </template>
+</router-outlet>
+<router-outlet path="/register">
+    <template>
+        <registration-form></registration-form>
+
+    </template>
+
+</router-outlet>
 </body>
 </html>
