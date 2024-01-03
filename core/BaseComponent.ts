@@ -1,6 +1,16 @@
 import { DependencyInjection } from "./DependencyInjection";
 import { createModel, query } from "./model";
 
+/**
+ * 
+ * @param args 
+ * @returns 
+ * @example
+ * @Template(`<h1>Hello {{username}}</h1>`)
+ * @description
+ * This decorator is used to define the template of the component
+ * In the example the handlebars syntax is used to bind the username property to the instance of the component
+ */
 export function Template(...args: any[]) {
     console.log({arguments});
     return function(target: any) {
