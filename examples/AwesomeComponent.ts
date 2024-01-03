@@ -39,5 +39,5 @@ AwesomeComponent.bindings = {
     'user.address.city': 'userCity'
 };
 AwesomeComponent.model = store;
-  
+  //@ts-ignore
 customElements.define("awesome-component", AwesomeComponent);

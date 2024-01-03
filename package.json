@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest --runInBand ",
     "dev": "vite dev",
-    "build":"esbuild ./core/index.ts --bundle --minify > ./dist/index.js"
+    "dev:doc": "typedoc --out ./docs ./core",
+    "build": "esbuild ./core/index.ts --bundle --minify > ./dist/index.js"
   },
   "author": "",
   "license": "ISC",
@@ -16,5 +17,8 @@
     "ts-jest": "^29.1.1",
     "typescript": "^5.3.2",
     "vite": "^5.0.6"
+  },
+  "devDependencies": {
+    "typedoc": "^0.25.6"
   }
 }

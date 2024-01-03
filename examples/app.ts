@@ -1,7 +1,5 @@
 import './config';
-import './RegistrationFormController';
-import './RegistrationForm';
-import { store } from "./store";
 import { Router } from '../core/router/router';
-
+import './services/EmployeesDataService';
+import './EmployeesTable';
 Router.init();

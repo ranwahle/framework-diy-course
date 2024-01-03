@@ -63,7 +63,7 @@ export const Router = {
     },
 
     init() {
-        window.addEventListener('hashchange', e => this.handler(e));
+        window.addEventListener('hashchange', () => this.handler());
         this.handler();
 
     }

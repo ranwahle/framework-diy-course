@@ -7,7 +7,9 @@ export function DependencyInjection<T>(base: any) {
             constructor(...args: any[]) {
 
                 super(...args);
+                //@ts-ignore
                 this.dependency = this.dependency || {};
+                //@ts-ignore
                 this.constructor.dependencies.forEach(key => {
                     this.dependency[key] = Injector(key)(this);
                 });
@@ -19,7 +21,7 @@ export function DependencyInjection<T>(base: any) {
     if (typeof base === 'object' && base) {
 
         base.dependency = base.dependency || {};
-        base.dependencies?.forEach(key => {
+        base.dependencies?.forEach((key: string) => {
             base.dependency[key] = Injector(key)(base);
         });
         return base as typeof base & { dependency: T };

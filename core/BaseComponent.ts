@@ -1,7 +1,44 @@
 import { DependencyInjection } from "./DependencyInjection";
-import { Injector } from "./Injector";
 import { createModel, query } from "./model";
 
+export function Template(...args: any[]) {
+    console.log({arguments});
+    return function(target: any) {
+        target.template = args[0];
+    }
+}
+export function Event(eventName: string) { 
+    return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+        const originalMethod = descriptor.value;
+        descriptor.value = function(...args: any[]) {
+            const result = originalMethod.apply(this, args);
+           
+            return result;
+        }
+        const originalConnectedCallback = target.connectedCallback || (() => { });
+        target.connectedCallback = function(...args: any[]) {
+            originalConnectedCallback.apply(this,...args);
+            this.addEventListener(eventName, (evt: Event) => descriptor.value.call(this, evt));
+            return this;
+        }
+
+    }
+}
+export function Tag(tag: `${string}-${string}`) {
+    return function(target: any) {
+        customElements.define(tag, target);
+    }
+}
+
+export function Dependencies(...args: string[]) {
+    return function(target: any) {
+        target.dependencies = args;
+    }
+}
+
+/**
+ * @interface {HTMLElement}
+ */
 export class BaseComponent extends DependencyInjection(HTMLElement) {
     static bindings: Record<string, string> = {};
     static dependencies: string[] = [];
@@ -13,14 +50,17 @@ export class BaseComponent extends DependencyInjection(HTMLElement) {
     // protected dependency: Record<string, any> = {};
 
     connectedCallback() { 
+                //@ts-ignore
         Object.keys(this.constructor.bindings).forEach(key => {
+                    //@ts-ignore
             const propertyName = this.constructor.bindings[key];
 
+                    //@ts-ignore
             const unObserver = this.constructor.model.$on(key, (value) => {
                 this[propertyName] = value;
                 this.render();
             });
-
+                    //@ts-ignore
             this[propertyName] = query(this.constructor.model, key);
             this._unObservers.add(unObserver);
         });
@@ -37,8 +77,10 @@ export class BaseComponent extends DependencyInjection(HTMLElement) {
     }
 
     render() {
-        // this.innerHTML = this.constructor.template;
+
+        //@ts-ignore
         let html = this.constructor.template;
+        //@ts-ignore
         const bindings = this.constructor.bindings;
         Object.keys(bindings).forEach(key => {
             const propertyName = bindings[key];
